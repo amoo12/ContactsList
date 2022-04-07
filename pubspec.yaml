@@ -10,11 +10,15 @@ environment:
   sdk: ">=2.15.0 <3.0.0"
 
 dependencies:
+  flex_color_scheme: ^4.2.0
+
+  
   flutter:
     sdk: flutter
+
   flutter_localizations:
     sdk: flutter
-
+  
 dev_dependencies:
   flutter_test:
     sdk: flutter

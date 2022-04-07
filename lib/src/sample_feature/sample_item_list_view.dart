@@ -1,3 +1,5 @@
+import 'package:check_in_list/src/data/data_service.dart';
+import 'package:check_in_list/src/models/item.dart';
 import 'package:flutter/material.dart';
 
 import '../settings/settings_view.dart';
@@ -6,18 +8,26 @@ import 'sample_item_details_view.dart';
 
 /// Displays a list of SampleItems.
 class SampleItemListView extends StatelessWidget {
-  const SampleItemListView({
+   SampleItemListView({
     Key? key,
-    this.items = const [SampleItem(1), SampleItem(2), SampleItem(3)],
+    // this.items = const [SampleItem(1), SampleItem(2), SampleItem(3)],
   }) : super(key: key);
 
   static const routeName = '/';
 
-  final List<SampleItem> items;
+  // final List<SampleItem> items;
+
+  DataService ds = DataService();
+ late List<Item> items;
+  
 
   @override
   Widget build(BuildContext context) {
+    items= ds.getData();
     return Scaffold(
+      // backgroundColor: Theme.of(context).colorScheme.,
+      // backgroundColor: Colors.white,
+      
       appBar: AppBar(
         title: const Text('Sample Items'),
         actions: [
@@ -44,15 +54,22 @@ class SampleItemListView extends StatelessWidget {
         // scroll position when a user leaves and returns to the app after it
         // has been killed while running in the background.
         restorationId: 'sampleItemListView',
+        
         itemCount: items.length,
         itemBuilder: (BuildContext context, int index) {
           final item = items[index];
 
           return ListTile(
-            title: Text('SampleItem ${item.id}'),
+            title: Text(item.user),
             leading: const CircleAvatar(
-              // Display the Flutter Logo image asset.
-              foregroundImage: AssetImage('assets/images/flutter_logo.png'),
+              child: Icon(Icons.person),
+            ),
+            subtitle: Text(item.phone),
+            trailing: Text(item.checkInDate.toString(),
+            style: const TextStyle(
+              fontSize: 12,
+              color: Colors.grey,
+            ),
             ),
             onTap: () {
               // Navigate to the details page. If the user leaves and returns to
@@ -69,3 +86,5 @@ class SampleItemListView extends StatelessWidget {
     );
   }
 }
+
+
