@@ -1,0 +1,6 @@
+{
+  "appTitle": "check_in_list",
+  "@appTitle": {
+    "description": "The title of the application"
+  }
+}
