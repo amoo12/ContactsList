@@ -1,5 +1,6 @@
 import 'package:check_in_list/src/data/data_service.dart';
 import 'package:check_in_list/src/models/item.dart';
+import 'package:check_in_list/src/sample_feature/searchDelegate.dart';
 import 'package:flutter/material.dart';
 
 import '../settings/settings_view.dart';
@@ -65,6 +66,13 @@ class _SampleItemListViewState extends State<SampleItemListView> {
               Navigator.restorablePushNamed(context, SettingsView.routeName);
             },
           ),
+
+          IconButton(
+            icon: const Icon(Icons.search),
+            onPressed: () {
+              showSearch(context: context, delegate: SearchItems());
+            },
+          ),
         ],
 
         // shape: const ContinuousRectangleBorder(
@@ -106,41 +114,46 @@ class _SampleItemListViewState extends State<SampleItemListView> {
               ]
             ),
           ),
-          Expanded(
-            child: ListView.builder(
-
-              restorationId: 'sampleItemListView',
-              
-              itemCount: items.length,
-              itemBuilder: (BuildContext context, int index) {
-                final item = items[index];
-          
-                return ListTile(
-                  title: Text(item.user),
-                  leading: const CircleAvatar(
-                    child: Icon(Icons.person),
-                  ),
-                  subtitle: Text(item.phone),
-                  trailing: Text(item.checkInDate.toString(),
-                  style: const TextStyle(
-                    fontSize: 12,
-                    color: Colors.grey,
-                  ),
-                  ),
-                  onTap: () {
-                    Navigator.restorablePushNamed(
-                      context,
-                      SampleItemDetailsView.routeName,
-                    );
-                  }
-                );
-              },
-            ),
-          ),
+          Expanded(child: buildItemsList(items)),
         ],
       ),
     );
   }
-}
+
+ }
+
+
+
+ Widget buildItemsList(List<Item> items) {
+    return ListView.builder(
+
+      restorationId: 'ItemListView',
+      
+      itemCount: items.length,
+      itemBuilder: (BuildContext context, int index) {
+        final item = items[index];
+        
+        return ListTile(
+          title: Text(item.user),
+          leading: const CircleAvatar(
+            child: Icon(Icons.person),
+          ),
+          subtitle: Text(item.phone),
+          trailing: Text(item.checkInDate.toString(),
+          style: const TextStyle(
+            fontSize: 12,
+            color: Colors.grey,
+          ),
+          ),
+          onTap: () {
+            Navigator.restorablePushNamed(
+              context,
+              SampleItemDetailsView.routeName,
+            );
+          }
+        );
+      },
+    );
+  }
 
 
