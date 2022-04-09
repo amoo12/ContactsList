@@ -3,85 +3,141 @@ import 'package:check_in_list/src/models/item.dart';
 import 'package:flutter/material.dart';
 
 import '../settings/settings_view.dart';
-import 'sample_item.dart';
 import 'sample_item_details_view.dart';
 
 /// Displays a list of SampleItems.
-class SampleItemListView extends StatelessWidget {
-   SampleItemListView({
+class SampleItemListView extends StatefulWidget {
+   const SampleItemListView({
     Key? key,
     // this.items = const [SampleItem(1), SampleItem(2), SampleItem(3)],
   }) : super(key: key);
 
   static const routeName = '/';
 
-  // final List<SampleItem> items;
+  @override
+  State<SampleItemListView> createState() => _SampleItemListViewState();
+}
 
+class _SampleItemListViewState extends State<SampleItemListView> {
+  // final List<SampleItem> items;
   DataService ds = DataService();
+
  late List<Item> items;
+
+ bool isDescending = false;
+ 
+  getData(){
+    final List<Item> data = ds.getData();
+    
+
+      data.sort((a,b){
+        if(isDescending){
+          return b.user.compareTo(a.user);
+        }else{
+          return a.user.compareTo(b.user);
+        }
+      }
+    );
+
+      setState(() {
+        items = data;
+      });
+    
+  }
   
+ @override
+  void initState() {
+    
+    super.initState();
+    getData();
+  }
 
   @override
   Widget build(BuildContext context) {
-    items= ds.getData();
+    
     return Scaffold(
-      // backgroundColor: Theme.of(context).colorScheme.,
-      // backgroundColor: Colors.white,
-      
       appBar: AppBar(
-        title: const Text('Sample Items'),
+        title: const Text('Check In List'),
         actions: [
           IconButton(
             icon: const Icon(Icons.settings),
             onPressed: () {
-              // Navigate to the settings page. If the user leaves and returns
-              // to the app after it has been killed while running in the
-              // background, the navigation stack is restored.
               Navigator.restorablePushNamed(context, SettingsView.routeName);
             },
           ),
         ],
-      ),
 
-      // To work with lists that may contain a large number of items, it’s best
-      // to use the ListView.builder constructor.
-      //
-      // In contrast to the default ListView constructor, which requires
-      // building all Widgets up front, the ListView.builder constructor lazily
-      // builds Widgets as they’re scrolled into view.
-      body: ListView.builder(
-        // Providing a restorationId allows the ListView to restore the
-        // scroll position when a user leaves and returns to the app after it
-        // has been killed while running in the background.
-        restorationId: 'sampleItemListView',
-        
-        itemCount: items.length,
-        itemBuilder: (BuildContext context, int index) {
-          final item = items[index];
+        // shape: const ContinuousRectangleBorder(
+        //   borderRadius:  BorderRadius.only(
+        //     bottomLeft:  Radius.circular(50),
+        //     bottomRight:  Radius.circular(50),
+        //   ),
+        //   ),
+        ),
+      
+      body: Column(
+        children: [
 
-          return ListTile(
-            title: Text(item.user),
-            leading: const CircleAvatar(
-              child: Icon(Icons.person),
+          Container( 
+
+            height: MediaQuery.of(context).size.height * 0.05,
+            padding: const EdgeInsets.only(left: 82, right: 10),
+            // color: Colors.grey[200],
+            color: Theme.of(context).colorScheme.secondary.withOpacity(0.5),
+
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children:  [
+              InkWell(
+                onTap: (){
+                setState(() {
+                  isDescending = !isDescending;
+                });
+                getData();
+              },
+                child: Row(
+                  children: [
+                    Text('Name'),
+                    isDescending ?Icon(Icons.arrow_drop_up) :Icon(Icons.arrow_drop_down),
+                  ],
+                ),
+              ),
+              Text('Check-in date'),
+              ]
             ),
-            subtitle: Text(item.phone),
-            trailing: Text(item.checkInDate.toString(),
-            style: const TextStyle(
-              fontSize: 12,
-              color: Colors.grey,
+          ),
+          Expanded(
+            child: ListView.builder(
+
+              restorationId: 'sampleItemListView',
+              
+              itemCount: items.length,
+              itemBuilder: (BuildContext context, int index) {
+                final item = items[index];
+          
+                return ListTile(
+                  title: Text(item.user),
+                  leading: const CircleAvatar(
+                    child: Icon(Icons.person),
+                  ),
+                  subtitle: Text(item.phone),
+                  trailing: Text(item.checkInDate.toString(),
+                  style: const TextStyle(
+                    fontSize: 12,
+                    color: Colors.grey,
+                  ),
+                  ),
+                  onTap: () {
+                    Navigator.restorablePushNamed(
+                      context,
+                      SampleItemDetailsView.routeName,
+                    );
+                  }
+                );
+              },
             ),
-            ),
-            onTap: () {
-              // Navigate to the details page. If the user leaves and returns to
-              // the app after it has been killed while running in the
-              // background, the navigation stack is restored.
-              Navigator.restorablePushNamed(
-                context,
-                SampleItemDetailsView.routeName,
-              );
-            }
-          );
-        },
+          ),
+        ],
       ),
     );
   }
