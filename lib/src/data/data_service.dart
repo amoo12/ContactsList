@@ -1,4 +1,4 @@
-import 'package:check_in_list/src/models/item.dart';
+import 'package:check_in_list/src/models/contact.dart';
 
 List<Map<String, dynamic>> dataSet = [
   {
@@ -58,8 +58,8 @@ class DataService {
   DataService();
   
   // get all data
-  List<Item> getData() {
-    return dataSet.map((item) => Item.fromJson(item)).toList();
+  List<Contact> getData() {
+    return dataSet.map((item) => Contact.fromJson(item)).toList();
   }
 
   List<Map<String, dynamic>> getDataByUser(String user) {
@@ -75,7 +75,7 @@ class DataService {
   }
 
   // insert new item
-  void insert(Item item) {
+  void insert(Contact item) {
     dataSet.add(item.toJson());
   }
 }

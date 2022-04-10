@@ -1,6 +1,7 @@
+import 'package:check_in_list/src/contacts_feature/searchDelegate.dart';
 import 'package:check_in_list/src/data/data_service.dart';
-import 'package:check_in_list/src/models/item.dart';
-import 'package:check_in_list/src/sample_feature/searchDelegate.dart';
+import 'package:check_in_list/src/models/contact.dart';
+
 import 'package:check_in_list/src/shared_widgets/custom_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -10,8 +11,8 @@ import 'new_contact.dart';
 import 'sample_item_details_view.dart';
 
 /// Displays a list of SampleItems.
-class SampleItemListView extends StatefulWidget {
-   const SampleItemListView({
+class ContactListView extends StatefulWidget {
+   const ContactListView({
     Key? key,
     // this.items = const [SampleItem(1), SampleItem(2), SampleItem(3)],
   }) : super(key: key);
@@ -19,20 +20,20 @@ class SampleItemListView extends StatefulWidget {
   static const routeName = '/';
 
   @override
-  State<SampleItemListView> createState() => _SampleItemListViewState();
+  State<ContactListView> createState() => _ContactListViewState();
 }
 
-class _SampleItemListViewState extends State<SampleItemListView> {
+class _ContactListViewState extends State<ContactListView> {
   late FToast fToast;
 
- late List<Item> items;
+ late List<Contact> items;
   
   late DataService ds;
 
  bool isDescending = false;
  
   getData(){
-    final List<Item> data = ds.getData();
+    final List<Contact> data = ds.getData();
     
 
       data.sort((a,b){
@@ -142,7 +143,7 @@ class _SampleItemListViewState extends State<SampleItemListView> {
 
  }
 
- Widget buildItemsList(List<Item> items) {
+ Widget buildItemsList(List<Contact> items) {
     return ListView.builder(
 
       restorationId: 'ItemListView',

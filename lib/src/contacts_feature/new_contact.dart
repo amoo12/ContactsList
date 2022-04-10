@@ -1,5 +1,5 @@
 import 'package:check_in_list/src/data/data_service.dart';
-import 'package:check_in_list/src/models/item.dart';
+import 'package:check_in_list/src/models/contact.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -36,7 +36,7 @@ class _NewContactState extends State<NewContact> {
               if (_formKey.currentState!.validate()) {
                 _formKey.currentState?.save();
 
-                Item item = Item.add(
+                Contact item = Contact.add(
                   user: _nameController.text,
                   phone: _phoneController.text,
                 );

@@ -1,17 +1,17 @@
 import 'package:intl/intl.dart';
 
-class Item {
+class Contact {
   final String user;
   final String phone;
   late final String checkIn;
 
-  Item(
+  Contact(
       {
       required this.user,
       required this.phone,
       required this.checkIn});
 
-      Item.add({
+  Contact.add({
        required this.user,
        required this.phone,
       }
@@ -30,8 +30,8 @@ class Item {
       };
 
   // convert from map to item
-  factory Item.fromJson(Map<String, dynamic> json) {
-    return Item(
+  factory Contact.fromJson(Map<String, dynamic> json) {
+    return Contact(
       user: json['user'] as String,
       phone: json['phone'] as String,
       checkIn: json['check-in'] as String,

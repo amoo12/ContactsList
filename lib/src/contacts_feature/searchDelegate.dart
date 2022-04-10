@@ -1,6 +1,7 @@
+import 'package:check_in_list/src/contacts_feature/contact_list_view.dart';
 import 'package:check_in_list/src/data/data_service.dart';
-import 'package:check_in_list/src/models/item.dart';
-import 'package:check_in_list/src/sample_feature/sample_item_list_view.dart';
+import 'package:check_in_list/src/models/contact.dart';
+
 import 'package:flutter/material.dart';
 
 class SearchItems extends SearchDelegate {
@@ -32,7 +33,7 @@ class SearchItems extends SearchDelegate {
 
   @override
   Widget buildResults(BuildContext context) {
-    List<Item> items = DataService()
+    List<Contact> items = DataService()
         .getData()
         .where((item) => item.user.toLowerCase().contains(query.toLowerCase()))
         .toList();
@@ -42,7 +43,7 @@ class SearchItems extends SearchDelegate {
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    List<Item> items = DataService()
+    List<Contact> items = DataService()
         .getData()
         .where((item) => item.user.toLowerCase().contains(query.toLowerCase()))
         .toList();
