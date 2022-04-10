@@ -29,14 +29,14 @@ class _ContactListViewState extends State<ContactListView> {
 
   bool isDescending = false;
 
-  getData() {
+  Future<void> getData() async {
     final List<Contact> data = ds.getData();
 
     data.sort((a, b) {
       if (isDescending) {
-        return b.user.compareTo(a.user);
+        return b.user.toLowerCase().compareTo(a.user.toLowerCase());
       } else {
-        return a.user.compareTo(b.user);
+        return a.user.toLowerCase().compareTo(b.user.toLowerCase());
       }
     });
 
@@ -47,14 +47,15 @@ class _ContactListViewState extends State<ContactListView> {
 
   void addContact(contact) async {
     customProgressIdicator(context);
-    await Future.delayed(Duration(seconds: 2));
+    await Future.delayed(Duration(seconds: 1));
+    getData();
     setState(() {
-      contacts.add(contact);
-      Navigator.restorablePopAndPushNamed(context, ContactListView.routeName);
+      Navigator.pop(context);
+      Navigator.pop(context);
 
       // show success toast
       fToast.init(context);
-      showToast(context, fToast, "Contact Saved", 3);
+      showToast(context, fToast, "Contact Saved", 1);
     });
   }
 
@@ -124,7 +125,10 @@ class _ContactListViewState extends State<ContactListView> {
                     Text('created'),
                   ]),
             ),
-            Expanded(child: buildContactList(context, contacts)),
+            Expanded(
+                child: RefreshIndicator(
+                    onRefresh: getData,
+                    child: buildContactList(context, contacts))),
           ],
         ));
   }
@@ -159,7 +163,7 @@ Widget buildContactList(BuildContext context, List<Contact> contacts) {
             return ListTile(
                 title: Text(contact.user),
                 leading: Hero(
-                  tag: contact.checkInDate,
+                  tag: contact.checkInDate + contact.user + contact.phone,
                   child: const CircleAvatar(
                     child: Icon(Icons.person),
                   ),

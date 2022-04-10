@@ -8,7 +8,6 @@ import 'contact_list_view.dart';
 class SearchContacts extends SearchDelegate {
   @override
   List<Widget>? buildActions(BuildContext context) {
-    // TODO: implement buildActions
     // return clear button
     return [
       IconButton(
@@ -22,8 +21,6 @@ class SearchContacts extends SearchDelegate {
 
   @override
   Widget? buildLeading(BuildContext context) {
-    // TODO: implement buildLeading
-    // return back button
     return IconButton(
       icon: Icon(Icons.arrow_back),
       onPressed: () {

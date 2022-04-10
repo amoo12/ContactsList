@@ -60,6 +60,7 @@ class _NewContactState extends State<NewContact> {
               decoration: InputDecoration(
                 labelText: 'Name',
               ),
+              autofocus: true,
               validator: (value) {
                 if (value!.isEmpty) {
                   return 'Please enter some text';

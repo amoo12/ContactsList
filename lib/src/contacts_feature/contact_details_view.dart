@@ -79,7 +79,7 @@ class ContactDetailsView extends StatelessWidget {
                     backgroundColor: Colors.white,
                     radius: 49.0,
                     child: Hero(
-                      tag: contact.checkInDate,
+                      tag: contact.checkInDate + contact.user + contact.phone,
                       child: CircleAvatar(
                         child: Icon(
                           Icons.person,
