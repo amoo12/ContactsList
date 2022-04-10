@@ -4,7 +4,7 @@ import 'package:check_in_list/src/models/contact.dart';
 
 import 'package:flutter/material.dart';
 
-class SearchItems extends SearchDelegate {
+class SearchContacts extends SearchDelegate {
   @override
   List<Widget>? buildActions(BuildContext context) {
     // TODO: implement buildActions
@@ -33,21 +33,21 @@ class SearchItems extends SearchDelegate {
 
   @override
   Widget buildResults(BuildContext context) {
-    List<Contact> items = DataService()
+    List<Contact> contacts = DataService()
         .getData()
-        .where((item) => item.user.toLowerCase().contains(query.toLowerCase()))
+        .where((contact) => contact.user.toLowerCase().contains(query.toLowerCase()))
         .toList();
 
-    return buildItemsList(items);
+    return buildContactList(contacts);
   }
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    List<Contact> items = DataService()
+    List<Contact> contacts = DataService()
         .getData()
-        .where((item) => item.user.toLowerCase().contains(query.toLowerCase()))
+        .where((contact) => contact.user.toLowerCase().contains(query.toLowerCase()))
         .toList();
         
-    return buildItemsList(items);
+    return buildContactList(contacts);
   }
 }

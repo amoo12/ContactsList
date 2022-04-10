@@ -29,7 +29,7 @@ class Contact {
         'check-in': checkIn,
       };
 
-  // convert from map to item
+  // convert from map to contact
   factory Contact.fromJson(Map<String, dynamic> json) {
     return Contact(
       user: json['user'] as String,

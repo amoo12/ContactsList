@@ -7,14 +7,12 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 import '../settings/settings_view.dart';
+import 'contact_details_view.dart';
 import 'new_contact.dart';
-import 'sample_item_details_view.dart';
 
-/// Displays a list of SampleItems.
 class ContactListView extends StatefulWidget {
    const ContactListView({
     Key? key,
-    // this.items = const [SampleItem(1), SampleItem(2), SampleItem(3)],
   }) : super(key: key);
 
   static const routeName = '/';
@@ -26,7 +24,7 @@ class ContactListView extends StatefulWidget {
 class _ContactListViewState extends State<ContactListView> {
   late FToast fToast;
 
- late List<Contact> items;
+ late List<Contact> contacts;
   
   late DataService ds;
 
@@ -46,13 +44,13 @@ class _ContactListViewState extends State<ContactListView> {
     );
 
       setState(() {
-        items = data;
+        contacts = data;
       });
   }
 
-  void addItem(item) {
+  void addContact(contact) {
     setState(() {
-      items.add(item);
+      contacts.add(contact);
       Navigator.pop(context);
       fToast.init(context);
       showToast(context, fToast, "Contact Saved",3);
@@ -85,7 +83,7 @@ class _ContactListViewState extends State<ContactListView> {
           IconButton(
             icon: const Icon(Icons.search),
             onPressed: () {
-              showSearch(context: context, delegate: SearchItems());
+              showSearch(context: context, delegate: SearchContacts());
             },
           ),
         ],
@@ -100,7 +98,7 @@ class _ContactListViewState extends State<ContactListView> {
             context,
             MaterialPageRoute(
               builder: (context) => NewContact(
-                addItem: addItem
+                addContact: addContact
               ),
             ),
           );
@@ -131,11 +129,11 @@ class _ContactListViewState extends State<ContactListView> {
                   ],
                 ),
               ),
-              Text('Check-in date'),
+                  Text('created'),
               ]
             ),
           ),
-          Expanded(child: buildItemsList(items)),
+          Expanded(child: buildContactList(contacts)),
         ],
       ),
     );
@@ -143,22 +141,22 @@ class _ContactListViewState extends State<ContactListView> {
 
  }
 
- Widget buildItemsList(List<Contact> items) {
+ Widget buildContactList(List<Contact> contacts) {
     return ListView.builder(
 
-      restorationId: 'ItemListView',
+    restorationId: 'contactListView',
       
-      itemCount: items.length,
+      itemCount: contacts.length,
       itemBuilder: (BuildContext context, int index) {
-        final item = items[index];
+        final contact = contacts[index];
         
         return ListTile(
-          title: Text(item.user),
+          title: Text(contact.user),
           leading: const CircleAvatar(
             child: Icon(Icons.person),
           ),
-          subtitle: Text(item.phone),
-          trailing: Text(item.checkInDate.toString(),
+          subtitle: Text(contact.phone),
+          trailing: Text(contact.checkInDate.toString(),
           style: const TextStyle(
             fontSize: 12,
             color: Colors.grey,
@@ -167,7 +165,8 @@ class _ContactListViewState extends State<ContactListView> {
           onTap: () {
             Navigator.restorablePushNamed(
               context,
-              SampleItemDetailsView.routeName,
+              ContactDetailsView.routeName,
+              arguments: contact.toJson(),
             );
           }
         );

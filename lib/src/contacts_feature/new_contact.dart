@@ -7,10 +7,10 @@ import 'package:flutter/services.dart';
 class NewContact extends StatefulWidget {
   const NewContact({
     Key? key,
-    required this.addItem,
+    required this.addContact,
   }) : super(key: key);
 
-  final Function addItem;
+  final Function addContact;
   static const routeName = '/new_contact';
 
   @override
@@ -36,15 +36,15 @@ class _NewContactState extends State<NewContact> {
               if (_formKey.currentState!.validate()) {
                 _formKey.currentState?.save();
 
-                Contact item = Contact.add(
+                Contact contact = Contact.add(
                   user: _nameController.text,
                   phone: _phoneController.text,
                 );
 
-                // insert item to db
+                // insert contact to db
                 DataService ds = DataService();
-                ds.insert(item);
-                widget.addItem(item);
+                ds.insert(contact);
+                widget.addContact(contact);
               }
             },
           ),
