@@ -78,12 +78,15 @@ class ContactDetailsView extends StatelessWidget {
                   child: CircleAvatar(
                     backgroundColor: Colors.white,
                     radius: 49.0,
-                    child: CircleAvatar(
-                      child: Icon(
-                        Icons.person,
-                        size: 40.0,
+                    child: Hero(
+                      tag: contact.checkInDate,
+                      child: CircleAvatar(
+                        child: Icon(
+                          Icons.person,
+                          size: 40.0,
+                        ),
+                        radius: 48.0,
                       ),
-                      radius: 48.0,
                     ),
                   ),
                 )

@@ -167,8 +167,11 @@ Widget buildContactList(BuildContext context, List<Contact> contacts) {
 
             return ListTile(
                 title: Text(contact.user),
-                leading: const CircleAvatar(
-                  child: Icon(Icons.person),
+                leading: Hero(
+                  tag: contact.checkInDate,
+                  child: const CircleAvatar(
+                    child: Icon(Icons.person),
+                  ),
                 ),
                 subtitle: Text(contact.phone),
                 trailing: Text(
