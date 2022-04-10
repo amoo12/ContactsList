@@ -1,3 +1,4 @@
+import 'package:check_in_list/src/sample_feature/new_contact.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -8,7 +9,8 @@ import 'sample_feature/sample_item_list_view.dart';
 import 'settings/settings_controller.dart';
 import 'settings/settings_view.dart';
 
-/// The Widget that configures your application.
+
+
 class MyApp extends StatelessWidget {
   const MyApp({
     Key? key,
@@ -57,8 +59,13 @@ class MyApp extends StatelessWidget {
           // Define a light and dark color theme. Then, read the user's
           // preferred ThemeMode (light, dark, or system default) from the
           // SettingsController to display the correct theme.
-          theme: FlexThemeData.light(scheme: FlexScheme.blueWhale),
-          darkTheme: FlexThemeData.dark(scheme: FlexScheme.blueWhale),
+          theme: FlexThemeData.light(scheme: FlexScheme.sakura),
+          darkTheme: FlexThemeData.dark(
+            scheme: FlexScheme.rosewood,
+            darkIsTrueBlack: false,
+            appBarStyle: FlexAppBarStyle.primary,
+
+          ),
           themeMode: settingsController.themeMode,
 
           // Define a function to handle named routes in order to support
@@ -72,6 +79,8 @@ class MyApp extends StatelessWidget {
                     return SettingsView(controller: settingsController);
                   case SampleItemDetailsView.routeName:
                     return const SampleItemDetailsView();
+                  // case NewContact.routeName:
+                  //   return const NewContact();
                   case SampleItemListView.routeName:
                   default:
                     return SampleItemListView();

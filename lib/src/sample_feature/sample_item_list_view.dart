@@ -1,9 +1,12 @@
 import 'package:check_in_list/src/data/data_service.dart';
 import 'package:check_in_list/src/models/item.dart';
 import 'package:check_in_list/src/sample_feature/searchDelegate.dart';
+import 'package:check_in_list/src/shared_widgets/custom_toast.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 import '../settings/settings_view.dart';
+import 'new_contact.dart';
 import 'sample_item_details_view.dart';
 
 /// Displays a list of SampleItems.
@@ -20,10 +23,11 @@ class SampleItemListView extends StatefulWidget {
 }
 
 class _SampleItemListViewState extends State<SampleItemListView> {
-  // final List<SampleItem> items;
-  DataService ds = DataService();
+  late FToast fToast;
 
  late List<Item> items;
+  
+  late DataService ds;
 
  bool isDescending = false;
  
@@ -43,13 +47,22 @@ class _SampleItemListViewState extends State<SampleItemListView> {
       setState(() {
         items = data;
       });
-    
+  }
+
+  void addItem(item) {
+    setState(() {
+      items.add(item);
+      Navigator.pop(context);
+      fToast.init(context);
+      showToast(context, fToast, "Contact Saved",3);
+    });
   }
   
  @override
   void initState() {
-    
     super.initState();
+    ds = DataService();
+    fToast = FToast();
     getData();
   }
 
@@ -58,7 +71,7 @@ class _SampleItemListViewState extends State<SampleItemListView> {
     
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Check In List'),
+        title: const Text('Contacts'),
         actions: [
           IconButton(
             icon: const Icon(Icons.settings),
@@ -66,6 +79,7 @@ class _SampleItemListViewState extends State<SampleItemListView> {
               Navigator.restorablePushNamed(context, SettingsView.routeName);
             },
           ),
+
 
           IconButton(
             icon: const Icon(Icons.search),
@@ -75,24 +89,30 @@ class _SampleItemListViewState extends State<SampleItemListView> {
           ),
         ],
 
-        // shape: const ContinuousRectangleBorder(
-        //   borderRadius:  BorderRadius.only(
-        //     bottomLeft:  Radius.circular(50),
-        //     bottomRight:  Radius.circular(50),
-        //   ),
-        //   ),
         ),
-      
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          // Navigator.pushNamed(context, NewContact.routeName);
+          // push material page route
+
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => NewContact(
+                addItem: addItem
+              ),
+            ),
+          );
+
+        },
+        child: const Icon(Icons.add),
+      ),
       body: Column(
         children: [
-
           Container( 
-
             height: MediaQuery.of(context).size.height * 0.05,
             padding: const EdgeInsets.only(left: 82, right: 10),
-            // color: Colors.grey[200],
-            color: Theme.of(context).colorScheme.secondary.withOpacity(0.5),
-
+            color: Theme.of(context).primaryColorLight.withOpacity(0.2),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children:  [
@@ -121,8 +141,6 @@ class _SampleItemListViewState extends State<SampleItemListView> {
   }
 
  }
-
-
 
  Widget buildItemsList(List<Item> items) {
     return ListView.builder(

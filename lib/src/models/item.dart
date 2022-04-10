@@ -1,16 +1,26 @@
 import 'package:intl/intl.dart';
 
 class Item {
-  final int? id;
   final String user;
   final String phone;
-  final String checkIn;
+  late final String checkIn;
 
   Item(
-      {this.id,
+      {
       required this.user,
       required this.phone,
       required this.checkIn});
+
+      Item.add({
+       required this.user,
+       required this.phone,
+      }
+      ){
+      // format date to db format
+      // format date to this format "2020-08-01 12:10:05"
+        checkIn = DateFormat('yyyy-MM-dd HH:mm:ss').format(DateTime.now());
+      }
+
 
   // to json
   Map<String, dynamic> toJson() => {
@@ -35,4 +45,7 @@ class Item {
     String formatted = fromat.format(date);
     return formatted;
   }
+
+  
+
 }
