@@ -2,6 +2,7 @@ import 'package:contact_list/src/contacts_feature/searchDelegate.dart';
 import 'package:contact_list/src/data/data_service.dart';
 import 'package:contact_list/src/models/contact.dart';
 import 'package:contact_list/src/shared_widgets/custom_toast.dart';
+import 'package:contact_list/src/shared_widgets/progress_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
@@ -47,10 +48,16 @@ class _ContactListViewState extends State<ContactListView> {
       });
   }
 
-  void addContact(contact) {
+  void addContact(contact) async {
+    customProgressIdicator(context);
+    await Future.delayed(Duration(seconds: 2));
     setState(() {
       contacts.add(contact);
       Navigator.pop(context);
+      Navigator.popUntil(
+          context, ModalRoute.withName(ContactListView.routeName));
+      
+      
       fToast.init(context);
       showToast(context, fToast, "Contact Saved",3);
     });
@@ -69,7 +76,12 @@ class _ContactListViewState extends State<ContactListView> {
     
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Contacts'),
+        title: Row(
+          children: [
+            Text('Contacts'),
+            Image.asset('assets/images/animation.gif', height: 60, width: 60),
+          ],
+        ),
         actions: [
           IconButton(
             icon: const Icon(Icons.settings),

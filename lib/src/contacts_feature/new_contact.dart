@@ -35,7 +35,7 @@ class _NewContactState extends State<NewContact> {
             onPressed: () {
               if (_formKey.currentState!.validate()) {
                 _formKey.currentState?.save();
-
+                FocusManager.instance.primaryFocus?.unfocus();
                 Contact contact = Contact.add(
                   user: _nameController.text,
                   phone: _phoneController.text,
