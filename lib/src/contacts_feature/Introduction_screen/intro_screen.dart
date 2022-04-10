@@ -23,7 +23,6 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
     // Obtain shared preferences.
     final prefs = await SharedPreferences.getInstance();
 
-    // Save an boolean value to 'repeat' key.
     await prefs.setBool('isFirst', false);
     Navigator.pop(context);
     Navigator.of(context).pushReplacement(
@@ -43,7 +42,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
   Widget build(BuildContext context) {
     const bodyStyle = TextStyle(fontSize: 19.0);
 
-    const pageDecoration = const PageDecoration(
+    const pageDecoration = PageDecoration(
       titleTextStyle: TextStyle(fontSize: 28.0, fontWeight: FontWeight.w700),
       bodyTextStyle: bodyStyle,
       bodyPadding: EdgeInsets.fromLTRB(16.0, 0.0, 16.0, 16.0),
@@ -96,22 +95,9 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
           image: _buildSvg('search.svg'),
           decoration: pageDecoration,
         ),
-        // PageViewModel(
-        //   title: "Full Screen Page",
-        //   body:
-        //       "Pages can be full screen as well.\n\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc id euismod lectus, non tempor felis. Nam rutrum rhoncus est ac venenatis.",
-        //   image: _buildFullscreenImage(),
-        //   decoration: pageDecoration.copyWith(
-        //     contentMargin: const EdgeInsets.symmetric(horizontal: 16),
-        //     fullScreen: true,
-        //     bodyFlex: 2,
-        //     imageFlex: 3,
-        //   ),
-        // ),
         PageViewModel(
           title: "Sort Contacts",
-          body:
-              "Click on Name at the top of the list to sort your contacts.",
+          body: "Click on Name at the top of the list to sort your contacts.",
           image: _buildSvg('sort.svg'),
           decoration: pageDecoration,
         ),
@@ -121,33 +107,12 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
           image: _buildSvg('go.svg'),
           decoration: pageDecoration,
         ),
-        // PageViewModel(
-        //   title: "Title of last page - reversed",
-        //   bodyWidget: Row(
-        //     mainAxisAlignment: MainAxisAlignment.center,
-        //     children: const [
-        //       Text("Click on ", style: bodyStyle),
-        //       Icon(Icons.edit),
-        //       Text(" to edit a post", style: bodyStyle),
-        //     ],
-        //   ),
-        //   decoration: pageDecoration.copyWith(
-        //     bodyFlex: 2,
-        //     imageFlex: 4,
-        //     bodyAlignment: Alignment.bottomCenter,
-        //     imageAlignment: Alignment.topCenter,
-        //   ),
-        //   image: _buildImage('img1.jpg'),
-        //   reverse: true,
-        // ),
       ],
       onDone: () => _onIntroEnd(context),
-      //onSkip: () => _onIntroEnd(context), // You can override onSkip callback
       showSkipButton: false,
       skipOrBackFlex: 0,
       nextFlex: 0,
       showBackButton: true,
-
       back: const Icon(Icons.arrow_back),
       skip: const Text('Skip', style: TextStyle(fontWeight: FontWeight.w600)),
       next: const Icon(Icons.arrow_forward),

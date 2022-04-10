@@ -6,8 +6,6 @@ import 'package:contact_list/src/shared_widgets/progress_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-
-import '../settings/settings_view.dart';
 import 'contact_details_view.dart';
 import 'new_contact.dart';
 
@@ -53,7 +51,7 @@ class _ContactListViewState extends State<ContactListView> {
     setState(() {
       contacts.add(contact);
       Navigator.restorablePopAndPushNamed(context, ContactListView.routeName);
-      
+
       // show success toast
       fToast.init(context);
       showToast(context, fToast, "Contact Saved", 3);
@@ -79,12 +77,6 @@ class _ContactListViewState extends State<ContactListView> {
             ],
           ),
           actions: [
-            IconButton(
-              icon: const Icon(Icons.settings),
-              onPressed: () {
-                Navigator.restorablePushNamed(context, SettingsView.routeName);
-              },
-            ),
             IconButton(
               icon: const Icon(Icons.search),
               onPressed: () {
