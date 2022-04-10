@@ -52,10 +52,9 @@ class _ContactListViewState extends State<ContactListView> {
     await Future.delayed(Duration(seconds: 2));
     setState(() {
       contacts.add(contact);
-      Navigator.pop(context);
-      Navigator.popUntil(
-          context, ModalRoute.withName(ContactListView.routeName));
-
+      Navigator.restorablePopAndPushNamed(context, ContactListView.routeName);
+      
+      // show success toast
       fToast.init(context);
       showToast(context, fToast, "Contact Saved", 3);
     });

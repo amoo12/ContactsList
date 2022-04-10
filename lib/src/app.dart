@@ -1,3 +1,5 @@
+import 'package:contact_list/src/contacts_feature/Introduction_screen/intro_screen.dart';
+import 'package:contact_list/wrapper.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -77,11 +79,9 @@ class MyApp extends StatelessWidget {
                     return SettingsView(controller: settingsController);
                   case ContactDetailsView.routeName:
                     return ContactDetailsView();
-                  // case NewContact.routeName:
-                  //   return const NewContact();
                   case ContactListView.routeName:
                   default:
-                    return ContactListView();
+                    return Wrapper(); 
                 }
               },
             );
