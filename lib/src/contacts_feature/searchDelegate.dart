@@ -39,7 +39,7 @@ class SearchContacts extends SearchDelegate {
         .where((contact) => contact.user.toLowerCase().contains(query.toLowerCase()))
         .toList();
 
-    return buildContactList(contacts);
+    return buildContactList(context, contacts);
   }
 
   @override
@@ -49,6 +49,6 @@ class SearchContacts extends SearchDelegate {
         .where((contact) => contact.user.toLowerCase().contains(query.toLowerCase()))
         .toList();
         
-    return buildContactList(contacts);
+    return buildContactList(context, contacts);
   }
 }
