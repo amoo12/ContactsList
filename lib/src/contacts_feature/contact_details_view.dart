@@ -1,4 +1,4 @@
-import 'package:check_in_list/src/models/contact.dart';
+import 'package:contact_list/src/models/contact.dart';
 import 'package:flutter/material.dart';
 
 class ContactDetailsView extends StatelessWidget {

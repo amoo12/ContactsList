@@ -1,8 +1,7 @@
-import 'package:check_in_list/src/contacts_feature/searchDelegate.dart';
-import 'package:check_in_list/src/data/data_service.dart';
-import 'package:check_in_list/src/models/contact.dart';
-
-import 'package:check_in_list/src/shared_widgets/custom_toast.dart';
+import 'package:contact_list/src/contacts_feature/searchDelegate.dart';
+import 'package:contact_list/src/data/data_service.dart';
+import 'package:contact_list/src/models/contact.dart';
+import 'package:contact_list/src/shared_widgets/custom_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 

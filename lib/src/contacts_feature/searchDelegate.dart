@@ -1,8 +1,9 @@
-import 'package:check_in_list/src/contacts_feature/contact_list_view.dart';
-import 'package:check_in_list/src/data/data_service.dart';
-import 'package:check_in_list/src/models/contact.dart';
+import 'package:contact_list/src/data/data_service.dart';
+import 'package:contact_list/src/models/contact.dart';
 
 import 'package:flutter/material.dart';
+
+import 'contact_list_view.dart';
 
 class SearchContacts extends SearchDelegate {
   @override

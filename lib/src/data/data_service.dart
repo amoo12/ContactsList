@@ -1,4 +1,4 @@
-import 'package:check_in_list/src/models/contact.dart';
+import 'package:contact_list/src/models/contact.dart';
 
 List<Map<String, dynamic>> dataSet = [
   {

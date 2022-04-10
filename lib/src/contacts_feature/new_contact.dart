@@ -1,5 +1,5 @@
-import 'package:check_in_list/src/data/data_service.dart';
-import 'package:check_in_list/src/models/contact.dart';
+import 'package:contact_list/src/data/data_service.dart';
+import 'package:contact_list/src/models/contact.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
