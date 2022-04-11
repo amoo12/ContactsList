@@ -177,6 +177,7 @@ Widget buildContactList(BuildContext context, List<Contact> contacts) {
                   ),
                 ),
                 onTap: () {
+                  FocusManager.instance.primaryFocus?.unfocus();
                   Navigator.restorablePushNamed(
                     context,
                     ContactDetailsView.routeName,

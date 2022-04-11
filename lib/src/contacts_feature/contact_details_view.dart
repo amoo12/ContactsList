@@ -5,15 +5,16 @@ import 'package:flutter_svg/flutter_svg.dart';
 class ContactDetailsView extends StatelessWidget {
   ContactDetailsView({Key? key}) : super(key: key);
 
-  late final Contact contact;
+  // late final Contact contact;
   static const routeName = '/contact_details';
 
   @override
   Widget build(BuildContext context) {
-    contact = Contact.fromJson(
+    final contact = Contact.fromJson(
         ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>);
 
     return Scaffold(
+      resizeToAvoidBottomInset: true,
       appBar: AppBar(
         title: const Text('Contact details'),
       ),
