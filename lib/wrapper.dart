@@ -1,5 +1,6 @@
 import 'package:contact_list/src/contacts_feature/Introduction_screen/intro_screen.dart';
 import 'package:contact_list/src/contacts_feature/contact_list_view.dart';
+import 'package:contact_list/src/data/data_service.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -22,7 +23,15 @@ class Wrapper extends StatelessWidget {
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             bool isFirst = isFirstLuanch(snapshot.data);
-            return isFirst ? OnBoardingPage() : ContactListView();
+
+            if (isFirst) {
+              DataService.initData();
+              return OnBoardingPage();
+            } else {
+              return ContactListView();
+            } 
+
+            // return isFirst ? OnBoardingPage() : ContactListView();
           } else {
             return Container(
                 color: Theme.of(context).backgroundColor,

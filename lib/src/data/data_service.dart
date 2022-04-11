@@ -1,4 +1,9 @@
+import 'dart:io';
+
 import 'package:contact_list/src/models/contact.dart';
+import 'package:hive/hive.dart';
+
+
 
 List<Map<String, dynamic>> dataSet = [
   {
@@ -54,28 +59,30 @@ List<Map<String, dynamic>> dataSet = [
 ];
 
 class DataService {
-  
+
   DataService();
+
+  static void initData() async {
+    // add dataset to hive contact box
+    var box = Hive.box<Contact>('contacts');
+    for (var i = 0; i < dataSet.length; i++) {
+      box.add(Contact.fromJson(dataSet[i]));
+    }
+  }
   
   // get all data
   List<Contact> getData() {
-    return dataSet.map((item) => Contact.fromJson(item)).toList();
-  }
+    // return dataSet.map((item) => Contact.fromJson(item)).toList();
+    var box = Hive.box<Contact>('contacts');
+    return box.values.toList();
 
-  List<Map<String, dynamic>> getDataByUser(String user) {
-    return dataSet.where((item) => item['user'] == user).toList();
-  }
-
-  List<Map<String, dynamic>> getDataByPhone(String phone) {
-    return dataSet.where((item) => item['phone'] == phone).toList();
-  }
-
-  List<Map<String, dynamic>> getDataByCheckIn(String checkIn) {
-    return dataSet.where((item) => item['check-in'] == checkIn).toList();
   }
 
   // insert new item
-  void insert(Contact item) {
-    dataSet.add(item.toJson());
+  void insert(Contact contact) {
+    // dataSet.add(contact.toJson());
+    var box = Hive.box<Contact>('contacts');
+    box.add(contact);
+
   }
 }
