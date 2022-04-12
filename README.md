@@ -16,7 +16,6 @@ This is a simple app that allows you to manage your contacts. You can add, sort 
 - light/dark mode
  
  
- 
 ## Packages & 3rd party dependencies 
 
 
@@ -25,6 +24,7 @@ This is a simple app that allows you to manage your contacts. You can add, sort 
 - flutter_svg: ^1.0.2  <a href='https://pub.dev/packages/flutter_svg' target=_blank>pup.dev</a>
 - introduction_screen: ^3.0.2 <a href='https://pub.dev/packages/introduction_screen' target=_blank>pup.dev</a>
 - shared_preferences: ^2.0.13 <a href='https://pub.dev/packages/shared_preferences' target=_blank>pup.dev</a>
+- hive: ^2.1.0 <a href='https://pub.dev/packages/hive' target=_blank>pup.dev</a>
 
 ## Run Locally
 
